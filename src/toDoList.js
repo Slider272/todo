@@ -1,31 +1,52 @@
 import React, { Component } from 'react';
-import TitleInput from './Components/TitleInput';
-import TaskInput from './Components/TaskInput';
-import Toggle from 'material-ui/Toggle';
+import {
+  Table,
+  TableHeader,
+  TableRow,
+  TableHeaderColumn,
+  TableBody,
+  TableRowColumn,
+  Checkbox
+} from 'material-ui';
 
 class TodoList extends Component {
 
   render() {
     return (
       <div className='todo'>
-        {this.props.items.map(item => (
-          <div
-            key={item.id}
-          >
-            <TitleInput
-              readOnly={true}
-              text={item.titles}
-            />
-            <TaskInput
-              text={item.task}
-              readOnly={true}
-            />
-            <Toggle
-              toggled={item.isComplited}
-              readOnly={true}
-            />
-         </div>
-        ))}
+        <Table>
+          <TableHeader>
+            <TableRow>
+              <TableHeaderColumn>
+                Title
+              </TableHeaderColumn>
+              <TableHeaderColumn>
+                Task
+              </TableHeaderColumn>
+              <TableHeaderColumn>
+                Complited
+              </TableHeaderColumn>
+            </TableRow>
+          </TableHeader>
+          <TableBody>
+          {this.props.items.map(item => (
+            <TableRow key={item.id}>
+              <TableRowColumn>
+                {item.titles}
+              </TableRowColumn>
+              <TableRowColumn>
+                {item.task}
+              </TableRowColumn>
+              <TableRowColumn>
+                <Checkbox
+                  checked={item.isComplited}
+                  disabled={true}
+                />
+              </TableRowColumn>
+            </TableRow>
+          ))}
+        </TableBody>
+      </Table>
       </div>
     );
   }

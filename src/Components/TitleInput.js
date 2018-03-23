@@ -23,7 +23,7 @@ class TitleInput extends Component {
                     hintText='Title'
                     id='new-todo'
                     onChange={this.onChange}
-                    value={this.state.text||this.props.text}
+                    value={this.state.text}
                     style={{
                         height: '96px',
                     }}

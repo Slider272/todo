@@ -64,7 +64,6 @@ console.log(newItem);
           <div className='form'>
             <TitleInput
               ref='titles'
-              value={this.state.title}
             />
             <TaskInput
               ref='task'

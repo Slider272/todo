@@ -25,7 +25,7 @@ class TaskInput extends Component {
                     multiLine={true}
                     id='new-task'
                     onChange={this.onChange}
-                    value={this.state.text||this.props.text}
+                    value={this.state.text}
                     className='textInput'
                 />
         );
