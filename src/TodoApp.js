@@ -83,14 +83,16 @@ console.log(newItem);
               label='Add the task'
               primary={true}
               style={{
-                marginLeft: '10px',
-                height: '20px',
+                  marginLeft: '10px',
+                  height: '20px',
               }}
               onClick={this.handleSubmit}
             />
             </div>
           </div>
-          <TodoList items={this.state.items} />
+          <TodoList
+            items={this.state.items}
+          />
         </div>
       );
     }
