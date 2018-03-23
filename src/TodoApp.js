@@ -186,7 +186,7 @@ class TodoApp extends Component {
             />
             <div>
             <Toggle
-              label='Complited'
+              label='Completed'
               id="new-complited"
               onToggle={this.handleChange}
               toggled={this.state.isComplited}

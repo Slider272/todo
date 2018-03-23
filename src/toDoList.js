@@ -47,7 +47,7 @@ class TodoList extends Component {
 
         <TableRowColumn>
           <TextField
-            name={item.id}
+            name={`${item.id}`}
             value={item.titles}
             onChange={this.props.onChangeItemTitle.bind(this, item.id)}
           />
@@ -55,9 +55,11 @@ class TodoList extends Component {
 
         <TableRowColumn>
           <TextField
-            name={item.id}
+            name={`${item.id}`}
             value={item.task}
             rows={2}
+            rowsMax={4}
+            multiLine={true}
             onChange={this.props.onChangeTask.bind(this, item.id)}
             />
         </TableRowColumn>
@@ -103,12 +105,13 @@ class TodoList extends Component {
                   textAlign: 'center',
                 }}
               >
-                Title
+                  Title
                 <FloatingActionButton
                   mini={true}
                   onClick={this.props.onSortRows}
                   style={{
                     marginLeft: '30px',
+                    top: '0px',
                   }}
                 >
                   <ContentSort />
@@ -128,7 +131,7 @@ class TodoList extends Component {
                   width: '90px',
                   }}
               >
-                Complited
+                Completed
               </TableHeaderColumn>
               <TableHeaderColumn
                 style={{
