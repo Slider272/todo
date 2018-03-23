@@ -14,6 +14,8 @@ class TodoApp extends Component {
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleDeleteRow = this.handleDeleteRow.bind(this);
+    this.onSortRows = this.onSortRows.bind(this);
   }
 
   handleChange(e, newValue) {
@@ -28,6 +30,34 @@ class TodoApp extends Component {
         items,
       });
     }
+  }
+
+  onSortRows() {
+//    this.state.items.sort(() => {
+
+//    })
+
+  }
+
+  handleDeleteRow() {
+    const selected = this.refs.todo.state.selected;
+    if (selected.length === 0) return;
+    let items;
+    if (selected === 'all') {
+      items = [];
+    } else {
+      items = this.state.items.filter((item, index) => {
+      return (selected.indexOf(index) < 0) ? true : false;
+      });
+
+    }
+    this.setState({
+      items,
+    });
+    localStorage.setItem('items', JSON.stringify(items));
+    this.refs.todo.setState({
+      selected: [],
+    });
   }
 
   handleSubmit(e) {
@@ -51,11 +81,17 @@ class TodoApp extends Component {
 
     this.setState({
       items: newItem,
-      titles: '',
-      task: '',
       isComplited: false,
     });
-console.log(newItem);
+
+    this.refs.titles.setState({
+      text: '',
+    });
+    this.refs.task.setState({
+      text: '',
+    });
+
+    console.log(newItem);
   }
 
   render() {
@@ -64,6 +100,7 @@ console.log(newItem);
           <div className='form'>
             <TitleInput
               ref='titles'
+              text={this.state.titles}
             />
             <TaskInput
               ref='task'
@@ -92,6 +129,8 @@ console.log(newItem);
           </div>
           <TodoList
             items={this.state.items}
+            onDeleteRow={this.handleDeleteRow}
+            ref='todo'
           />
         </div>
       );

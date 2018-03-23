@@ -11,6 +11,7 @@ import {
 } from 'material-ui';
 import TextField from 'material-ui/TextField';
 import ContentDeleteSweep from 'material-ui/svg-icons/content/delete-sweep';
+import ContentSort from 'material-ui/svg-icons/content/sort';
 // import RaisedButton from 'material-ui/RadioButton';
 
 class TodoList extends Component {
@@ -21,7 +22,6 @@ class TodoList extends Component {
     }
 
     this.handleRowSelection = this.handleRowSelection.bind(this);
-    this.handleDeleteRow = this.handleDeleteRow.bind(this);
 
   }
 
@@ -34,10 +34,6 @@ class TodoList extends Component {
       selected: selectedRows,
     })
   };
-
-  handleDeleteRow(e) {
-    console.log(this.state.selected);
-  }
 
   getItems(item, index){
     return (
@@ -70,6 +66,7 @@ class TodoList extends Component {
         <TableRowColumn
           style={{
             width: '90px',
+            textAlign: 'center',
           }}
         >
           <Checkbox
@@ -89,6 +86,7 @@ class TodoList extends Component {
         <Table
           multiSelectable={true}
           onRowSelection={this.handleRowSelection}
+          allRowsSelected={false}
         >
           <TableHeader className='tableHeader'>
             <TableRow>
@@ -101,25 +99,46 @@ class TodoList extends Component {
                 ID
               </TableHeaderColumn>
 
-              <TableHeaderColumn>
+              <TableHeaderColumn
+                style={{
+                  textAlign: 'center',
+                }}
+              >
                 Title
+                <FloatingActionButton
+                  mini={true}
+                  onClick={this.props.onSortRows}
+                  style={{
+                    marginLeft: '30px',
+                  }}
+                >
+                  <ContentSort />
+                </FloatingActionButton>
               </TableHeaderColumn>
 
-              <TableHeaderColumn>
+              <TableHeaderColumn
+                style={{
+                  textAlign: 'center',
+                }}
+              >
                 Task
               </TableHeaderColumn>
 
               <TableHeaderColumn
                 style={{
                   width: '90px',
-                }}
+                  }}
               >
                 Complited
               </TableHeaderColumn>
-              <TableHeaderColumn>
+              <TableHeaderColumn
+                style={{
+                  textAlign: 'right',
+                }}
+              >
                 <FloatingActionButton
                   mini={true}
-                  onClick={this.handleDeleteRow}
+                  onClick={this.props.onDeleteRow}
                 >
                   <ContentDeleteSweep />
                 </FloatingActionButton>
