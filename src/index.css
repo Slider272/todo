@@ -16,7 +16,7 @@ body {
   top: 0px;
   height: 100px;
   z-index: 1000;
-  background-color: white;
+  background-color: rgb(231, 233, 253);
 }
 
 .todo {

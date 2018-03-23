@@ -11,32 +11,109 @@ class TodoApp extends Component {
     this.state = {
       items: [],
       isComplited: false,
+      sort: 1,
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleDeleteRow = this.handleDeleteRow.bind(this);
-    this.onSortRows = this.onSortRows.bind(this);
+    this.handleSortRows = this.handleSortRows.bind(this);
+    this.setItems = this.setItems.bind(this);
+    this.getItems = this.getItems.bind(this);
+    this.handleChangeItemTitle = this.handleChangeItemTitle.bind(this);
+    this.handleChangeComplited = this.handleChangeComplited.bind(this);
+    this.handleChangeTask = this.handleChangeTask.bind(this);
+  }
+
+  handleChangeItemTitle(name, event) {
+    let newValue = event.target.value;
+    let items = this.state.items;
+    items = items.map((el) => {
+      return ({
+          titles: (el.id === name) ? newValue : el.titles,
+          task: el.task,
+          isComplited: el.isComplited,
+          id: el.id,
+      });
+    });
+    this.setState({
+      items
+    });
+    this.setItems(items);
+  }
+
+  handleChangeTask(name, event) {
+    let newValue = event.target.value;
+    let items = this.state.items;
+    items = items.map((el) => {
+      return ({
+          titles: el.titles,
+          task: (el.id === name) ? newValue : el.task,
+          isComplited: el.isComplited,
+          id: el.id,
+      });
+    });
+    this.setState({
+      items
+    });
+    this.setItems(items);
+  }
+
+  handleChangeComplited(name, event, newValue) {
+    let items = this.state.items;
+    items = items.map((el) => {
+      return ({
+          titles: el.titles,
+          task: el.task,
+          isComplited: (el.id === name) ? newValue : el.isComplited,
+          id: el.id,
+      });
+    });
+    this.setState({
+      items
+    });
+    this.setItems(items);
   }
 
   handleChange(e, newValue) {
     this.setState({ isComplited: newValue });
   }
 
-  componentWillMount(){
-    const items = JSON.parse(localStorage.getItem('items'));
-    console.log(items);
-    if (items) {
-      this.setState({
-        items,
-      });
+  setItems(obj){
+    try {
+      localStorage.setItem('items', JSON.stringify(obj));
+    } catch (e) {
+      if (e !== '') {
+        alert('Error Save LocalStorage');
+      }
     }
   }
 
-  onSortRows() {
-//    this.state.items.sort(() => {
+  getItems (){
+    return JSON.parse(localStorage.getItem('items'));
+  }
 
-//    })
+  componentWillMount(){
+    this.setState({
+      items: this.getItems(),
+    });
+  }
 
+  componentDidMount() {
+    if (this.state.items) this.handleSortRows();
+  }
+
+  handleSortRows() {
+    const items = this.state.items;
+    items.sort((item, itemNext) => {
+      if (item['titles'] > itemNext['titles']) return this.state.sort;
+      else if (item['titles'] < itemNext['titles']) return -this.state.sort;
+      else return 0;
+    })
+    this.setState({
+      items,
+      sort: -this.state.sort,
+    });
+    this.setItems(items);
   }
 
   handleDeleteRow() {
@@ -54,7 +131,7 @@ class TodoApp extends Component {
     this.setState({
       items,
     });
-    localStorage.setItem('items', JSON.stringify(items));
+    this.setItems(items);
     this.refs.todo.setState({
       selected: [],
     });
@@ -66,18 +143,21 @@ class TodoApp extends Component {
     const titles = this.refs.titles.state.text;
     const task = this.refs.task.state.text;
     const isComplited = this.state.isComplited;
+    let items = this.state.items;
     if (!titles.length) {
       return;
     }
 
-    const newItem = this.state.items.concat({
+    let newItem;
+    if (!items) items = [];
+    newItem = items.concat({
       titles,
       task,
       isComplited,
       id: Date.now(),
     });
 
-    localStorage.setItem('items', JSON.stringify(newItem));
+    this.setItems(newItem);
 
     this.setState({
       items: newItem,
@@ -91,7 +171,6 @@ class TodoApp extends Component {
       text: '',
     });
 
-    console.log(newItem);
   }
 
   render() {
@@ -130,6 +209,10 @@ class TodoApp extends Component {
           <TodoList
             items={this.state.items}
             onDeleteRow={this.handleDeleteRow}
+            onSortRows={this.handleSortRows}
+            onChangeItemTitle={this.handleChangeItemTitle}
+            onChangeTask={this.handleChangeTask}
+            onChangeComplited={this.handleChangeComplited}
             ref='todo'
           />
         </div>

@@ -6,7 +6,7 @@ import {
   TableHeaderColumn,
   TableBody,
   TableRowColumn,
-  Checkbox,
+  Toggle,
   FloatingActionButton
 } from 'material-ui';
 import TextField from 'material-ui/TextField';
@@ -22,7 +22,6 @@ class TodoList extends Component {
     }
 
     this.handleRowSelection = this.handleRowSelection.bind(this);
-
   }
 
   isSelected = (index) => {
@@ -48,19 +47,19 @@ class TodoList extends Component {
 
         <TableRowColumn>
           <TextField
-            name={`${item.id}`}
+            name={item.id}
             value={item.titles}
-            disabled={true}
+            onChange={this.props.onChangeItemTitle.bind(this, item.id)}
           />
         </TableRowColumn>
 
         <TableRowColumn>
           <TextField
-            name={`${item.id}`}
+            name={item.id}
             value={item.task}
-            disabled={true}
             rows={2}
-          />
+            onChange={this.props.onChangeTask.bind(this, item.id)}
+            />
         </TableRowColumn>
 
         <TableRowColumn
@@ -69,9 +68,9 @@ class TodoList extends Component {
             textAlign: 'center',
           }}
         >
-          <Checkbox
-            checked={item.isComplited}
-            disabled={true}
+          <Toggle
+            toggled={item.isComplited}
+            onToggle={this.props.onChangeComplited.bind(this, item.id)}
           />
         </TableRowColumn>
         <TableRowColumn />
@@ -148,7 +147,7 @@ class TodoList extends Component {
           <TableBody
             deselectOnClickaway={false}
           >
-          {this.props.items.map((item, index) => (
+          {this.props.items && this.props.items.map((item, index) => (
             this.getItems(item, index)
           ))}
         </TableBody>
