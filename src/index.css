@@ -26,3 +26,21 @@ body {
   z-index: 1;
   width: 100%;
 }
+
+.todoRow:hover {
+  background-color: rgb(244, 246, 255);
+}
+
+.extMenu {
+  opacity: 0;
+  width: 20px;
+  max-width: 20px;
+  height: 20px;
+  background-color: rgb(134, 255, 255);
+  border-radius: 2px;
+  z-index: 2;
+}
+
+.todo .tableHeader {
+  background-color: rgb(245, 245, 245);
+}
