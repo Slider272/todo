@@ -1,0 +1,28 @@
+body {
+  margin: 0;
+  padding: 0;
+  font-family: sans-serif;
+}
+
+.form {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 0px 10px;
+  display: flex;
+  box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 6px, rgba(0, 0, 0, 0.12) 0px 1px 4px;
+  border-radius: 0px;
+  position: fixed;
+  left: 0px;
+  top: 0px;
+  height: 100px;
+  z-index: 1000;
+  background-color: white;
+}
+
+.todo {
+  position: relative;
+  margin: 100px auto 10px;
+  box-sizing: border-box;
+  z-index: 1;
+  width: 100%;
+}
