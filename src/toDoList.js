@@ -49,7 +49,7 @@ class TodoList extends Component {
           <TextField
             name={`${item.id}`}
             value={item.titles}
-            onChange={this.props.onChangeItemTitle.bind(this, item.id)}
+            onChange={this.props.onChangeItems.bind(this, ('titles'), item.id)}
           />
         </TableRowColumn>
 
@@ -60,7 +60,7 @@ class TodoList extends Component {
             rows={2}
             rowsMax={4}
             multiLine={true}
-            onChange={this.props.onChangeTask.bind(this, item.id)}
+            onChange={this.props.onChangeItems.bind(this, ('task'), item.id)}
             />
         </TableRowColumn>
 
@@ -72,7 +72,7 @@ class TodoList extends Component {
         >
           <Toggle
             toggled={item.isComplited}
-            onToggle={this.props.onChangeComplited.bind(this, item.id)}
+            onToggle={this.props.onChangeItems.bind(this, ('isComplited'), item.id)}
           />
         </TableRowColumn>
         <TableRowColumn />

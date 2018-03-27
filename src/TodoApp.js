@@ -19,53 +19,22 @@ class TodoApp extends Component {
     this.handleSortRows = this.handleSortRows.bind(this);
     this.setItems = this.setItems.bind(this);
     this.getItems = this.getItems.bind(this);
-    this.handleChangeItemTitle = this.handleChangeItemTitle.bind(this);
-    this.handleChangeComplited = this.handleChangeComplited.bind(this);
-    this.handleChangeTask = this.handleChangeTask.bind(this);
+    this.handleChangeItems = this.handleChangeItems.bind(this);
   }
 
-  handleChangeItemTitle(name, event) {
-    let newValue = event.target.value;
+  handleChangeItems(name, id, event, newValue) {
     let items = this.state.items;
     items = items.map((el) => {
-      return ({
-          titles: (el.id === name) ? newValue : el.titles,
-          task: el.task,
-          isComplited: el.isComplited,
+      return (el.id === id) ? ({
+          titles: (name === 'titles') ? newValue : el.titles,
+          task: (name === 'task') ? newValue : el.task,
+          isComplited: (name === 'isComplited') ? newValue : el.isComplited,
           id: el.id,
-      });
-    });
-    this.setState({
-      items
-    });
-    this.setItems(items);
-  }
-
-  handleChangeTask(name, event) {
-    let newValue = event.target.value;
-    let items = this.state.items;
-    items = items.map((el) => {
-      return ({
-          titles: el.titles,
-          task: (el.id === name) ? newValue : el.task,
-          isComplited: el.isComplited,
-          id: el.id,
-      });
-    });
-    this.setState({
-      items
-    });
-    this.setItems(items);
-  }
-
-  handleChangeComplited(name, event, newValue) {
-    let items = this.state.items;
-    items = items.map((el) => {
-      return ({
-          titles: el.titles,
-          task: el.task,
-          isComplited: (el.id === name) ? newValue : el.isComplited,
-          id: el.id,
+      }) : ({
+        titles: el.titles,
+        task: el.task,
+        isComplited: el.isComplited,
+        id: el.id,
       });
     });
     this.setState({
@@ -210,9 +179,9 @@ class TodoApp extends Component {
             items={this.state.items}
             onDeleteRow={this.handleDeleteRow}
             onSortRows={this.handleSortRows}
-            onChangeItemTitle={this.handleChangeItemTitle}
-            onChangeTask={this.handleChangeTask}
-            onChangeComplited={this.handleChangeComplited}
+            onChangeItems={this.handleChangeItems}
+            // onChangeTask={this.handleChangeTask}
+            // onChangeComplited={this.handleChangeComplited}
             ref='todo'
           />
         </div>
