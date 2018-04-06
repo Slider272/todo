@@ -1,7 +1,10 @@
 {
-  "name": "toDoSample",
-  "version": "0.1.0",
-  "private": true,
+  "name": "todoSample",
+  "version": "1.0.0",
+  "private": false,
+  "description": "Sample todo project on ReactJS with material-ui component"
+  "Author": "Yakushin Yury",
+  "license": "Apache-2.0",
   "dependencies": {
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
